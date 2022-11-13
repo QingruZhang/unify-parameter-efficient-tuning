@@ -35,6 +35,7 @@ ffn_adapter_layernorm_option="none"
 ffn_adapter_init_option="lora"
 ffn_adapter_scalar="4"
 ffn_bn=8 # ffn bottleneck dim
+# numparam=8175084 
 
 # ----- prefix tuning baseline -----
 # attn_mode="prefix"
@@ -147,8 +148,10 @@ num_train_epochs=30
 warmup_updates=0
 lr=5e-5
 lr_scheduler_type="polynomial"
-bsz=16
-gradient_steps=4
+bsz=8
+gradient_steps=1
+# bsz=16
+# gradient_steps=4
 
 metric=rouge2
 unfreeze='ef_'
@@ -193,7 +196,8 @@ SAVE=checkpoints/${dataset}/${DATE}/${exp_name}
 # rm checkpoints/hf_model/downloads/*.lock
 # rm checkpoints/hf_model/*.lock
 
-python -m ipdb examples/pytorch/summarization/run_summarization.py \
+python -m torch.distributed.launch --master_port=$MASTER_PORT --nproc_per_node=8 \
+    examples/pytorch/summarization/run_summarization.py \
     --dataset_name 'xsum' \
     --model_name_or_path 'facebook/bart-large' \
     --cache_dir ${cache_dir} \
@@ -251,6 +255,67 @@ python -m ipdb examples/pytorch/summarization/run_summarization.py \
     --greater_is_better "True" \
     --predict_with_generate \
     --output_dir ${SAVE} ${extra_cmd} \
+
+
+
+# python -m ipdb examples/pytorch/summarization/run_summarization.py \
+#     --dataset_name 'xsum' \
+#     --model_name_or_path 'facebook/bart-large' \
+#     --cache_dir ${cache_dir} \
+#     --lora_alpha ${lora_alpha} \
+#     --lora_dropout ${lora_dropout} \
+#     --lora_init ${lora_init} \
+#     --attn_mode ${attn_mode} \
+#     --attn_option ${attn_option} \
+#     --attn_composition ${attn_composition} \
+#     --ffn_mode ${ffn_mode} \
+#     --ffn_option ${ffn_option} \
+#     --ffn_adapter_layernorm_option ${ffn_adapter_layernorm_option} \
+#     --ffn_adapter_scalar ${ffn_adapter_scalar} \
+#     --ffn_adapter_init_option ${ffn_adapter_init_option} \
+#     --mid_dim 100 \
+#     --attn_bn ${attn_bn} \
+#     --ffn_bn ${ffn_bn} \
+#     --unfreeze_params ${unfreeze} \
+#     --preprocessing_num_workers 2 \
+#     --max_source_length 512 \
+#     --max_target_length 128 \
+#     --val_max_target_length 60 \
+#     --max_eval_samples ${max_eval_samples} \
+#     --num_beams 6 \
+#     --max_length 60 \
+#     --min_length 10 \
+#     --no_repeat_ngram_size 3 \
+#     --do_train \
+#     --do_eval \
+#     --do_predict \
+#     --per_device_train_batch_size ${bsz} \
+#     --per_device_eval_batch_size ${bsz} \
+#     --gradient_accumulation_steps ${gradient_steps} \
+#     --max_steps ${max_steps} \
+#     --num_train_epochs ${num_train_epochs} \
+#     --learning_rate ${lr} \
+#     --lr_scheduler_type ${lr_scheduler_type} \
+#     --max_grad_norm ${max_grad_norm} \
+#     --weight_decay ${weight_decay} \
+#     --warmup_steps ${warmup_updates} \
+#     --fp16 \
+#     --logging_steps ${logging_steps} \
+#     --save_total_limit 2 \
+#     --label_smoothing_factor ${label_smoothing_factor} \
+#     --evaluation_strategy ${eval_strategy} \
+#     --save_strategy ${eval_strategy} \
+#     --save_steps ${save_steps} \
+#     --eval_steps ${save_steps} \
+#     --load_best_model_at_end \
+#     --report_to ${report_to} \
+#     --run_name ${dataset}.${DATE}.${exp_name} \
+#     --overwrite_output_dir "True" \
+#     --disable_tqdm "True" \
+#     --metric_for_best_model ${metric} \
+#     --greater_is_better "True" \
+#     --predict_with_generate \
+#     --output_dir ${SAVE} ${extra_cmd} \
 
 
         # 2>&1 | tee ${SAVE}/log.txt
