@@ -27,14 +27,14 @@ dataset="xsum"
 attn_mode="prefix"
 attn_option="concat"
 attn_composition="add"
-attn_bn=30  # attn bottleneck dim
+attn_bn=10  # attn bottleneck dim
 
 ffn_mode="adapter"
 ffn_option="parallel"
 ffn_adapter_layernorm_option="none"
 ffn_adapter_init_option="lora"
 ffn_adapter_scalar="4"
-ffn_bn=512 # ffn bottleneck dim
+ffn_bn=32 # ffn bottleneck dim
 
 # ----- prefix tuning baseline -----
 # attn_mode="prefix"
@@ -188,10 +188,10 @@ exp_name+=.warm${warmup_updates}.wd${weight_decay}${debug_str}
 
 SAVE=checkpoints/${dataset}/${DATE}/${exp_name}
 
-rm -rf ${SAVE}; mkdir -p ${SAVE}
+# rm -rf ${SAVE}; mkdir -p ${SAVE}
 
-rm checkpoints/hf_model/downloads/*.lock
-rm checkpoints/hf_model/*.lock
+# rm checkpoints/hf_model/downloads/*.lock
+# rm checkpoints/hf_model/*.lock
 
 python -m ipdb examples/pytorch/summarization/run_summarization.py \
     --dataset_name 'xsum' \
@@ -208,7 +208,7 @@ python -m ipdb examples/pytorch/summarization/run_summarization.py \
     --ffn_adapter_layernorm_option ${ffn_adapter_layernorm_option} \
     --ffn_adapter_scalar ${ffn_adapter_scalar} \
     --ffn_adapter_init_option ${ffn_adapter_init_option} \
-    --mid_dim 800 \
+    --mid_dim 100 \
     --attn_bn ${attn_bn} \
     --ffn_bn ${ffn_bn} \
     --unfreeze_params ${unfreeze} \
