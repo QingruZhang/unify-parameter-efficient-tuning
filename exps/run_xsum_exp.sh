@@ -27,14 +27,14 @@ dataset="xsum"
 attn_mode="prefix"
 attn_option="concat"
 attn_composition="add"
-attn_bn=10  # attn bottleneck dim
+attn_bn=1  # attn bottleneck dim
 
 ffn_mode="adapter"
 ffn_option="parallel"
 ffn_adapter_layernorm_option="none"
 ffn_adapter_init_option="lora"
 ffn_adapter_scalar="4"
-ffn_bn=32 # ffn bottleneck dim
+ffn_bn=8 # ffn bottleneck dim
 
 # ----- prefix tuning baseline -----
 # attn_mode="prefix"
@@ -208,7 +208,7 @@ python -m ipdb examples/pytorch/summarization/run_summarization.py \
     --ffn_adapter_layernorm_option ${ffn_adapter_layernorm_option} \
     --ffn_adapter_scalar ${ffn_adapter_scalar} \
     --ffn_adapter_init_option ${ffn_adapter_init_option} \
-    --mid_dim 100 \
+    --mid_dim 800 \
     --attn_bn ${attn_bn} \
     --ffn_bn ${ffn_bn} \
     --unfreeze_params ${unfreeze} \
