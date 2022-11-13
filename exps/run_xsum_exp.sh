@@ -193,7 +193,7 @@ rm -rf ${SAVE}; mkdir -p ${SAVE}
 rm checkpoints/hf_model/downloads/*.lock
 rm checkpoints/hf_model/*.lock
 
-python -u examples/pytorch/summarization/run_summarization.py \
+echo("python -u examples/pytorch/summarization/run_summarization.py \
     --dataset_name 'xsum' \
     --model_name_or_path 'facebook/bart-large' \
     --cache_dir ${cache_dir} \
@@ -251,7 +251,8 @@ python -u examples/pytorch/summarization/run_summarization.py \
     --greater_is_better "True" \
     --predict_with_generate \
     --output_dir ${SAVE} ${extra_cmd} \
-    
+    ")
+
         # 2>&1 | tee ${SAVE}/log.txt
 
 # python -u examples/pytorch/summarization/run_summarization.py \
