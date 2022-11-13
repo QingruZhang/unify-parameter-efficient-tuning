@@ -208,7 +208,7 @@ python -m ipdb examples/pytorch/summarization/run_summarization.py \
     --ffn_adapter_layernorm_option ${ffn_adapter_layernorm_option} \
     --ffn_adapter_scalar ${ffn_adapter_scalar} \
     --ffn_adapter_init_option ${ffn_adapter_init_option} \
-    --mid_dim 800 \
+    --mid_dim 100 \
     --attn_bn ${attn_bn} \
     --ffn_bn ${ffn_bn} \
     --unfreeze_params ${unfreeze} \
