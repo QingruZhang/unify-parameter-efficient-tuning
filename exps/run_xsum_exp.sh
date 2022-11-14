@@ -27,14 +27,14 @@ dataset="xsum"
 attn_mode="prefix"
 attn_option="concat"
 attn_composition="add"
-attn_bn=1  # attn bottleneck dim
+attn_bn=84  # attn bottleneck dim
 
 ffn_mode="adapter"
 ffn_option="parallel"
 ffn_adapter_layernorm_option="none"
 ffn_adapter_init_option="lora"
 ffn_adapter_scalar="4"
-ffn_bn=32 # ffn bottleneck dim
+ffn_bn=64 # ffn bottleneck dim
 # numparam=8175084 
 
 # ----- prefix tuning baseline -----
