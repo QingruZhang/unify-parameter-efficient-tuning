@@ -34,7 +34,7 @@ ffn_option="parallel"
 ffn_adapter_layernorm_option="none"
 ffn_adapter_init_option="lora"
 ffn_adapter_scalar="4"
-ffn_bn=512 # ffn bottleneck dim
+ffn_bn=32 # ffn bottleneck dim
 
 # ----- prefix tuning baseline -----
 # attn_mode="prefix"
