@@ -34,7 +34,7 @@ ffn_option="parallel"
 ffn_adapter_layernorm_option="none"
 ffn_adapter_init_option="lora"
 ffn_adapter_scalar="4"
-ffn_bn=8 # ffn bottleneck dim
+ffn_bn=32 # ffn bottleneck dim
 # numparam=8175084 
 
 # ----- prefix tuning baseline -----
@@ -273,7 +273,7 @@ python -m ipdb examples/pytorch/summarization/run_summarization.py \
     --ffn_adapter_layernorm_option ${ffn_adapter_layernorm_option} \
     --ffn_adapter_scalar ${ffn_adapter_scalar} \
     --ffn_adapter_init_option ${ffn_adapter_init_option} \
-    --mid_dim 100 \
+    --mid_dim 50 \
     --attn_bn ${attn_bn} \
     --ffn_bn ${ffn_bn} \
     --unfreeze_params ${unfreeze} \
