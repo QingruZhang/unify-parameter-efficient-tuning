@@ -185,7 +185,7 @@ fi
 
 
 exp_name=xsum.am_${attn_mode}.ao_${attn_option}.fm_${ffn_mode}
-exp_name+=.fo_${ffn_option}.abn${attn_bn}.fbn${ffn_bn}.ac_${attn_composition}
+exp_name+=.fo_${ffn_option}.abn${attn_bn}.middim${mid_dim}.fbn${ffn_bn}.ac_${attn_composition}
 exp_name+=.fl_${ffn_adapter_layernorm_option}.finit_${ffn_adapter_init_option}.fs_${ffn_adapter_scalar}
 exp_name+=.unfrz_${unfreeze}.ms${max_steps}.ls${label_smoothing_factor}
 exp_name+=.warm${warmup_updates}.wd${weight_decay}${debug_str}
